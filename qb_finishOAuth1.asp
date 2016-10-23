@@ -8,10 +8,12 @@
 <body>
 
 <%
-	' The incoming params are  oauth_token and oauth_verifier
+	' The incoming params are  oauth_token, oauth_verifier, realmId, and dataSource
 	Session("oauth_token") = request.querystring("oauth_token")
 	Session("oauth_verifier") = request.querystring("oauth_verifier")
-	
+	Session("realmId") = request.querystring("realmId")
+	Session("dataSource") = request.querystring("dataSource")
+
 	set http = Server.CreateObject("Chilkat_9_5_0.Http")
 
 	success = http.UnlockComponent(Session("chilkatUnlockCode"))
@@ -41,6 +43,7 @@
 
 	    Response.Write "<p>Access Token: " & Session("oauth_token") & "</p>"
 	    Response.Write "<p>Access Token Secret: " & Session("oauth_token_secret") & "</p>"
+	    Response.Write "<p>Realm ID: " & Session("realmId") & "</p>"
 	Else
 	    Response.Write "<pre>" & Server.HTMLEncode( http.LastErrorText) & "</pre>"
 	End If
